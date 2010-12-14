@@ -3,6 +3,8 @@ Changes
 MANIFEST
 README
 lib/Data/Babel/Client.pm
+t/lib.pm
+t/Build.pm
 t/00-load.t
 t/manifest.t
 t/pod-coverage.t
