@@ -3,7 +3,7 @@ package Data::Babel::Client;
 use warnings;
 use strict;
 
-our $VERSION = '0.01_02';
+our $VERSION = '0.01_04';
 
 use Carp;
 use Data::Dumper;
@@ -82,7 +82,7 @@ Data::Babel::Client - A Client to access the Babel web service.
 
 =head1 VERSION
 
-Version 0.01_02
+Version 0.01_04
 
 =cut
 

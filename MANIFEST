@@ -13,5 +13,6 @@ t/10-test_idtypes.t
 t/11-test_translate.t
 t/12-test_missing_args.t
 t/13-test_bad_args.t
+t/common_vars.pl
 Makefile.PL
 META.yml

@@ -9,6 +9,7 @@ my $builder = Module::Build->new(
     dist_version_from   => 'lib/Data/Babel/Client.pm',
     build_requires => {
         'Test::More' => 0,
+	'Class::AutoClass' => 1.54,
     },
     add_to_cleanup      => [ 'Data-Babel-Client-*' ],
     create_makefile_pl => 'traditional',

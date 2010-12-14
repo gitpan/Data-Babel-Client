@@ -17,7 +17,7 @@ name: Data-Babel-Client
 provides:
   Data::Babel::Client:
     file: lib/Data/Babel/Client.pm
-    version: 0.01_02
+    version: 0.01_04
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.01_03
+version: 0.01_04
