@@ -3,7 +3,7 @@ package Data::Babel::Client;
 use warnings;
 use strict;
 
-our $VERSION = '0.01_04';
+our $VERSION = '0.01';
 
 use Carp;
 use Data::Dumper;

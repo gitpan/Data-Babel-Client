@@ -5,9 +5,13 @@ WriteMakefile
           'NAME' => 'Data::Babel::Client',
           'VERSION_FROM' => 'lib/Data/Babel/Client.pm',
           'PREREQ_PM' => {
-                           'Test::More' => 0,
-                           't::Build' => 0,
-                           't::lib' => 0
+                           'Carp' => 0,
+                           'Class::AutoClass' => '1.54',
+                           'Data::Dumper' => 0,
+                           'HTTP::Request::Common' => 0,
+                           'JSON' => 0,
+                           'LWP::UserAgent' => 0,
+                           'Test::More' => 0
                          },
           'INSTALLDIRS' => 'site',
           'EXE_FILES' => [],

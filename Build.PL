@@ -10,6 +10,11 @@ my $builder = Module::Build->new(
     build_requires => {
         'Test::More' => 0,
 	'Class::AutoClass' => 1.54,
+	'Carp' => 0,
+	'Data::Dumper' => 0,
+	'HTTP::Request::Common' => 0,
+	'JSON' => 0,
+	'LWP::UserAgent' => 0,
     },
     add_to_cleanup      => [ 'Data-Babel-Client-*' ],
     create_makefile_pl => 'traditional',
