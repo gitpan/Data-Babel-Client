@@ -3,7 +3,7 @@ package Data::Babel::Client;
 use warnings;
 use strict;
 
-our $VERSION = '0.01';
+our $VERSION = '0.01_05';
 
 use Carp;
 use Data::Dumper;
@@ -55,9 +55,11 @@ sub translate {
 
     # check for missing args:
     my @missing_args;
-    my @required_args=qw(request_type input_ids input_type output_types output_format);
+    my @required_args=qw(request_type input_type output_types output_format);
     push @missing_args, grep /\w/, map {$args{$_}? '' : $_} @required_args;
+    push @missing_args, "input_ids or input_ids_all" unless $args{input_ids} || $args{input_ids_all};
     die sprintf("translate: missing args: %s\n", join(', ',@missing_args)) if @missing_args;
+    die sprintf("translate: cannot request both input_ids and input_ids_all") if $args{input_ids} && $args{input_ids_all};
 
     my $json=$self->_fetch(%args);
     my $table=decode_json($json);
@@ -82,7 +84,7 @@ Data::Babel::Client - A Client to access the Babel web service.
 
 =head1 VERSION
 
-Version 0.01_04
+Version 0.01_05
 
 =cut
 

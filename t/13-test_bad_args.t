@@ -69,19 +69,23 @@ sub test_bad_args {
     eval {
 	my %args=%test_request;
 	$args{input_ids}='29833';   # returns array of undefs, except for input
+#	warn "$0: args are ",Dumper(\%args);
 	my $t=$bc->translate(%args);
 #	warn "t is ",Dumper($t);
-	is(ref $t, 'ARRAY') &&
-	    is(@$t,1) &&
-	    is (ref $t->[0],'ARRAY') &&
-	    is ($t->[0]->[0],29833, "got empty array for known but non-connected id");
-	my $c=grep {!defined $_} @{$t->[0]};
-	is ($c, 5);
+	is(ref $t, 'ARRAY', "got arrayref...") &&
+	    is(@$t,0,"...of length 0");
+
+# did Nat change the behaviour here?  These used to work, as did the above with value=1, not 0
+#	    is (ref $t->[0],'ARRAY',"...first element also an array ref...") &&
+#	    is ($t->[0]->[0],29833, "...got empty array for known but non-connected id");
+#	my $c=grep {!defined $_} @{$t->[0]};
+#	is ($c, 5,"got five elements");
 	
     };
     ok ($@ eq '', "no thrown exceptions");
 
 
+    # test bad input_type 'fred'
     eval {
 	my %args=%test_request;
 	$args{input_type}='fred';
@@ -93,6 +97,7 @@ sub test_bad_args {
     };
     ok ($@ eq '', "no thrown exceptions");
 
+    # test bad output_type 'gene_symbol2'
     eval {
 	my %args=%test_request;
 	$args{output_types}='gene_symbol2';
@@ -104,7 +109,18 @@ sub test_bad_args {
     };
     ok ($@ eq '', "no thrown exceptions");
 
-    # bad output_format should get corrected by client:
+    # test input_ids and input_ids_all given together:
+    eval {
+	my %args=%test_request;
+	$args{input_ids_all}=1;
+	my $t=$bc->translate(%args);
+	warn "t is ",Dumper($t);
+    };
+    my $expected_error='translate: cannot request both input_ids and input_ids_all';
+    my $err_len=length($expected_error); # error actually only starts with above string; also contains file & line number, etc.
+    is (substr($@,0,$err_len),$expected_error, "caught presense of both input_ids and input_ids_all");
+
+    # bad output_format should get over-written by client:
     my ($t1,$t2);
     eval { $t1=$bc->translate(%test_request) };
     ok ($@ eq '') or BAIL_OUT("error connecting to service: $@");
@@ -117,6 +133,7 @@ sub test_bad_args {
     };
     ok ($@ eq '', "no thrown exceptions");
 
+    # bad request_type to translate() should get corrected:
     eval {
 	my %args=%test_request;
 	$args{request_type}='idtypes';
